@@ -21,13 +21,13 @@ for j in range(1,5):
         enemies.append( pygame.Rect(i*70,j*50,40,40) )
 
 bullet=pygame.Rect(200,400,5,10)
-bulletspeed=5 
+bulletspeed=20 
 bulletState="ready"
         
 score=0
 score_font=pygame.font.Font('freesansbold.ttf', 12)
-#Add code to create a new font for "Game Over" text.
-over_font=pygame.font.Font('freesansbold.ttf',20)
+over_font=pygame.font.Font('freesansbold.ttf', 25)
+winner_font=pygame.font.Font('freesansbold.ttf',25)
 while True:    
     screen.fill((0,0,0))
     screen.blit(background_image,[0,0])
@@ -67,23 +67,26 @@ while True:
             bullet.y=-10000
             score=score+1
             
+        
         if player.colliderect(enemy):
             player.y=-1000
             enemy.y=-1000
             enemyspeed=0
-            #Add code to display "Game over" here so that it is visible only when the emeny reaches the player.
             screen.blit(over_text,[130,250])
             
+        
+        
         #pygame.draw.rect(screen,(123,200,100),enemy)
         screen.blit(enemy_image,enemy)
-        
+    if score==16:
+        win_text=winner_font.render("WINNER!",False,(255,150,200))
+        screen.blit(win_text,[160,250])
     pygame.draw.rect(screen,(225,225,15),bullet)         
     #pygame.draw.rect(screen,(23,100,100),player)
     screen.blit(player_image,player)
     score_text=score_font.render("Score : "+ str(score), False, (255,255,255))   
-    screen.blit(score_text,[10,10])
-    #Add code to create "Game over" text
-    over_text=over_font.render("GAME OVER",False,(255,255,200))      
+    screen.blit(score_text,[10,10])     
+    over_text=over_font.render("GAME OVER", False, (255,255,255)) 
     
     pygame.display.update()
     clock.tick(30)
